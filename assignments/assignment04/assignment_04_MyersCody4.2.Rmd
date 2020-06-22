@@ -1,0 +1,74 @@
+---
+title: "ASSIGNMENT 4"
+author: "Cody Myers"
+date: '2020-06-21'
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+bibliography: C:/Users/myers/OneDrive/Desktop/dsc520/assignments/assignment04/bibliography.bib
+---
+
+# Markdown Basics
+
+## Favorite Foods
+
+1. favFoods
+  + Burger
+  + Sushi
+  + Taco
+  
+## Images
+
+![All Cases (Log Plot)](C:/Users/myers/OneDrive/Desktop/dsc520/completed/assignment04/plots/10-all-cases-log.png)
+
+## Add a Quote
+
+> A wiseman once said...
+> tie your shoes before running a marathon.
+
+## Add an Equation
+
+\[ x^n + y^n = z^n \]
+
+## Add a Footnote
+
+^[This is a footnote]
+
+## Add Citations
+
+@lander2014r
+@field2012discovering
+
+# Tables
+
+## Knitr Table with Kable
+
+```{r}
+name <- c("Aragon", "Bilbo", "Frodo", "Galadriel", "Sam", "Gandalf", "Legolas", "Sauron", "Gollum")
+race <- c("Men", "Hobbit", "Hobbit", "Elf", "Hobbit", "Maia", "Elf", "Maia", "Hobbit")
+in_fellowship <- c(TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE)
+ring_bearer <- c(FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE)
+age <- c(88, 129, 51, 7000, 36, 2019, 2931, 7052, 589)
+
+characters_df <- data.frame(name, race, in_fellowship, ring_bearer, age)
+knitr::kable(characters_df, caption = "One Ring to Rule Them All")
+```
+
+## Pandoc Table
+#Error that says pandoc is not compatible with R 4.0.0
+
+#```{r}
+#library(pandoc)
+
+#name <- c("Aragon", "Bilbo", "Frodo", "Galadriel", "Sam", "Gandalf", "Legolas", "Sauron", "Gollum")
+#race <- c("Men", "Hobbit", "Hobbit", "Elf", "Hobbit", "Maia", "Elf", "Maia", "Hobbit")
+#in_fellowship <- c(TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE)
+#ring_bearer <- c(FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE)
+#age <- c(88, 129, 51, 7000, 36, 2019, 2931, 7052, 589)
+
+#characters_df <- data.frame(name, race, in_fellowship, ring_bearer, age)
+#pandoc.table(characters_df, style = 'grid')
+#```
+
+# References
