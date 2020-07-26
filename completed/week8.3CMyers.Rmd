@@ -1,0 +1,132 @@
+---
+title: "week 8.3 CMyers"
+author: "Cody"
+date: "7/26/2020"
+output: html_document
+---
+```{r}
+library(ggplot2)
+setwd("C:/Users/myers/OneDrive/Desktop/dsc520")
+clustering_df <- read.csv("data/clustering-data.csv")
+head(clustering_df)
+str(clustering_df)
+ggplot(clustering_df, aes(x=x, y=y)) + geom_point()
+```
+
+b. Fit the dataset using the k-means algorithm from k=2 to k=12. Create a scatter plot of the resultant clusters for each value of k.
+
+
+```{r}
+matrix<- data.matrix(clustering_df)
+wss <- (nrow(matrix) -1)*sum(apply(matrix,2,var))
+for (i in 2:15) wss[i]<-sum(kmeans(matrix, centers = i)$withinss)
+plot(1:15,wss, type = "b", color="red")
+```
+
+
+c. As k-means is an unsupervised algorithm, you cannot compute the accuracy as there are no correct values to compare the output to. Instead, you will use the average distance from the center of each cluster as a measure of how well the model fits the data. To calculate this metric, simply compute the distance of each data point to the center of the cluster it is assigned to and take the average value of all of those distances.
+
+Calculate this average distance from the center of each cluster for each value of k and plot it as a line chart where k is the x-axis and the average distance is the y-axis.
+
+One way of determining the “right” number of clusters is to look at the graph of k versus average distance and finding the “elbow point”. Looking at the graph you generated in the previous example, what is the elbow point for this dataset?
+
+
+**Answer** - Looking at the k-vs-Average distance graph the "elbow-point" is at K=6. Also with value K=6 the cluster graph shows more accuracy. 
+
+
+```{r}
+clusters <- kmeans(clustering_df, 2)
+ 
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df) +
+  ggtitle("clustering for K=2")
+```
+
+```{r}
+clusters <- kmeans(clustering_df, 3)
+ 
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df) +
+  ggtitle("clustering for K=3")
+```
+
+
+```{r}
+clusters <- kmeans(clustering_df, 4)
+ 
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df) +
+  ggtitle("clustering for K=4")
+```
+
+
+```{r}
+clusters <- kmeans(clustering_df, 5)
+ 
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df) +
+  ggtitle("clustering for K=5")
+```
+
+
+```{r}
+clusters <- kmeans(clustering_df, 6)
+ 
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df) +
+  ggtitle("clustering for K=6")
+```
+
+
+```{r}
+clusters <- kmeans(clustering_df, 7)
+ 
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df) +
+  ggtitle("clustering for K=7")
+```
+
+
+```{r}
+clusters <- kmeans(clustering_df, 8)
+ 
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df) +
+  ggtitle("clustering for K=8")
+```
+
+
+```{r}
+clusters <- kmeans(clustering_df, 9)
+ 
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df) +
+  ggtitle("clustering for K=9")
+```
+
+
+```{r}
+clusters <- kmeans(clustering_df, 10)
+ 
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df) +
+  ggtitle("clustering for K=10")
+```
+
+
+```{r}
+clusters <- kmeans(clustering_df, 11)
+ 
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df) +
+  ggtitle("clustering for K=11")
+```
+
+
+```{r}
+clusters <- kmeans(clustering_df, 12)
+ 
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df) +
+  ggtitle("clustering for K=12")
+```
