@@ -1,0 +1,60 @@
+---
+title: "Week 7 assign 1"
+author: "Cody"
+date: "7/25/2020"
+output: html_document
+---
+
+
+```{r}
+setwd("C:/Users/myers/OneDrive/Desktop/dsc520")
+library("foreign")
+thoracic_surgery_df <- read.arff("data/ThoraricSurgery.arff")
+head(thoracic_surgery_df)
+str(thoracic_surgery_df)
+```
+
+```{r}
+library("caTools")
+split<-sample.split(thoracic_surgery_df, SplitRatio=0.8)
+split
+```
+```{r}
+train_df <- subset(thoracic_surgery_df, split="TRUE")
+test_df <- subset(thoracic_surgery_df, split="FALSE")
+regress<-glm(Risk1Yr ~  DGN + PRE4 + PRE5 + PRE6 + PRE7 + PRE8 + PRE9 + PRE10 +PRE14+ PRE11 + PRE17 + PRE19 + PRE25 + PRE30 + PRE32 + AGE, data = train_df, family = "binomial")
+summary(regress)
+exp(confint(regress))
+exp(regress$coefficients)
+regress_subset<-glm(Risk1Yr ~  DGN + PRE5 + PRE9 + PRE11 + PRE14+ PRE17 + PRE30, data = train_df, family = "binomial")
+summary(regress_subset)
+```
+
+According to the summary of the model, we find that PRE9 possess the highest p value that also possesses a pos. correlation, this would imply that it has the strongest influence on our model.
+
+
+```{r}
+result <- predict(regress, test_df, type="response")
+result <- predict(regress, train_df, type="response")
+```
+```{r}
+confusion_matrix <- table(Actual_Value=train_df$Risk1Yr, Predicted_Value= result >0.5)
+confusion_matrix
+```
+```{r}
+accuracy = (confusion_matrix[[1,1]] + confusion_matrix[[2,2]])/sum(confusion_matrix) * 100
+accuracy
+```
+```{r}
+result <- predict(regress_subset, test_df, type="response")
+result <- predict(regress_subset, train_df, type="response")
+confusion_matrix <- table(Actual_Value=train_df$Risk1Yr, Predicted_Value= result >0.5)
+confusion_matrix
+```
+```{r}
+accuracy = (confusion_matrix[[1,1]] + confusion_matrix[[2,2]])/sum(confusion_matrix) * 100
+accuracy
+```
+
+
+By observing the accuracy calculations and the confusion matrix, we find that the model's accuracy is 84.26%.
