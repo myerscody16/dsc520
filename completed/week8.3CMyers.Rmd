@@ -1,0 +1,99 @@
+---
+title: "week 8.3 CMyers"
+author: "Cody"
+date: "7/26/2020"
+output: html_document
+---
+```{r}
+library(ggplot2)
+setwd("C:/Users/myers/OneDrive/Desktop/dsc520")
+clustering_df <- read.csv("data/clustering-data.csv")
+head(clustering_df)
+str(clustering_df)
+ggplot(clustering_df, aes(x=x, y=y)) + geom_point()
+```
+
+```{r}
+matrix<- data.matrix(clustering_df)
+wss <- (nrow(matrix) -1)*sum(apply(matrix,2,var))
+for (i in 2:15) wss[i]<-sum(kmeans(matrix, centers = i)$withinss)
+plot(1:15,wss, type = "b", color="red")
+```
+By observing the k v average distance plot, we see that the "elbow point" is where k is equal to 6.
+
+k=2
+```{r}
+clusters <- kmeans(clustering_df, 2)
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df)
+```
+
+k=3
+```{r}
+clusters <- kmeans(clustering_df, 3)
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df)
+```
+
+k=4
+```{r}
+clusters <- kmeans(clustering_df, 4)
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df)
+```
+
+k=5
+```{r}
+clusters <- kmeans(clustering_df, 5)
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df)
+```
+
+k=6
+```{r}
+clusters <- kmeans(clustering_df, 6)
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df)
+```
+
+k=7
+```{r}
+clusters <- kmeans(clustering_df, 7)
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df)
+```
+
+k=8
+```{r}
+clusters <- kmeans(clustering_df, 8)
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df)
+```
+
+k=9
+```{r}
+clusters <- kmeans(clustering_df, 9)
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df)
+```
+
+k=10
+```{r}
+clusters <- kmeans(clustering_df, 10)
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df)
+```
+
+k=11
+```{r}
+clusters <- kmeans(clustering_df, 11)
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df)
+```
+
+k=12
+```{r}
+clusters <- kmeans(clustering_df, 12)
+clustering_df$cluster <- as.factor(clusters$cluster)
+ggplot(clustering_df) + geom_point(aes(x = x, y = y, colour = as.factor(cluster)),data = clustering_df)
+```
