@@ -1,0 +1,66 @@
+---
+title: "DSC520 Week 8"
+author: "Cody"
+date: "7/22/2020"
+output: html_document
+---
+Import the needed libraries
+```{r, echo = FALSE}
+library("ggplot2")
+library("caTools")
+library("class")
+library("caret")
+```
+
+Plotting binary and trinary data sets
+```{r}
+setwd("C:/Users/myers/OneDrive/Desktop/dsc520")
+binary <- read.csv("data/binary-classifier-data.csv")
+trinary <- read.csv("data/trinary-classifier-data.csv")
+head(binary)
+head(trinary)
+summary(binary)
+summary(trinary)
+ggplot(binary, aes(x=x, y=y, color= label)) + geom_point()
+ggplot(trinary, aes(x=x, y=y, color= label)) + geom_point()
+```
+
+Now, to get our data for training and testing our model
+```{r}
+set.seed(42)
+binarySplit<-sample.split(binary, SplitRatio=0.80)
+trinarySplit<-sample.split(trinary, SplitRatio=0.80)
+binary_train <- subset(binary, binary_split="TRUE")
+binary_test <- subset(binary, binary_split="FALSE")
+trinary_train <- subset(trinary, trinary_split="TRUE")
+trinary_test <- subset(trinary, trinary_split="FALSE")
+sqrt(nrow(binary_train))
+#38.7
+sqrt(nrow(trinary_train))
+#39.6
+kValues <- list(3,5,10,15,20,25)
+```
+
+```{r}
+accuracy_b = 1
+for (i in kValues) {
+  knn_b <- knn(train=binary_train, test=binary_test, cl=binary_train$label, k=i )
+  accuracy_b[i] <- 100 * sum(binary_test$label == knn_b)/nrow(binary_test)
+}
+plot(accuracy_b, type="b", xlab="K",ylab="Accuracy", ylim = c(95,100))
+```
+
+```{r}
+accuracy_t = 1
+for (i in kValues) {
+  knn_t <- knn(train=trinary_train, test=trinary_test, cl=trinary_train$label, k=i )
+  accuracy_t[i] <- 100 * sum(trinary_test$label == knn_t)/nrow(trinary_test)
+}
+plot(accuracy_t, type="b", xlab="K",ylab="Accuracy", ylim = c(70,100))
+```
+
+Based upon the scatter plots and how the accuracy drops as k increases, it is safe to say that a linear classifier could be used in this situation. This would result in a classification boundary as opposed to clusters.
+
+
+
+
